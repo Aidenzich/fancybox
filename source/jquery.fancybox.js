@@ -1887,7 +1887,25 @@
 				return;
 			}
 
-			title = $('<div class="fancybox-title fancybox-title-' + type + '-wrap">' + text + '</div>');
+			//2020 Note change
+			var img_id = current.href.replace("#","");	//img_id get current.href
+			try {
+				var img_alt = document.getElementById(String(img_id)).alt;
+			}catch(e){
+
+			}
+			
+			if (img_alt == false || img_alt == undefined){
+				try{
+					img_alt = document.querySelector('[src="'+ current.href + '"]').alt;
+				}catch(e){}
+				if (img_alt == false || img_alt == undefined){
+					img_alt = text;
+				}
+			}
+
+			// title = $('<div class="fancybox-title fancybox-title-' + type + '-wrap">' + text + '</div>');
+			title = $('<div class="fancybox-title fancybox-title-' + type + '-wrap">' + img_alt + '</div>');
 
 			switch (type) {
 				case 'inside':
